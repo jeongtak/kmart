@@ -20,11 +20,13 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
 
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-
+    restart: on-failure
+    depends_on:
+        - zookeeper
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
   default:
-    external:
-      name : kafka-net
+    name: kafka-net
+    external: true
