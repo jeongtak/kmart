@@ -1,0 +1,13 @@
+FROM openjdk:17-alpine
+
+EXPOSE 8080/tcp
+
+WORKDIR /usr/src/app
+
+ARG JAR_PATH=./build/libs
+
+# 컨테이너 내부에 빌드한 jar 파일을 복사
+COPY ${JAR_PATH}/KMart-0.0.1-SNAPSHOT.jar ${JAR_PATH}/KMart-0.0.1-SNAPSHOT.jar
+
+# jar파일을 복사하는 대신, docker run 시 -v 옵션을 줘서 jar 파일을 PV로 마운트 함 ex) -v D:\k-mart\KMart:/usr/src/app
+CMD ["java","-jar","./build/libs/KMart-0.0.1-SNAPSHOT.jar"]
