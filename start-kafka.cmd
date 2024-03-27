@@ -1,0 +1,1 @@
+docker compose -f ./docker-compose-kafka.yml -p kmart up --force-recreate -d

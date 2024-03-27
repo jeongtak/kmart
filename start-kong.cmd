@@ -1,0 +1,1 @@
+docker compose -f ./docker-compose-kong.yml -p kmart up --force-recreate -d
