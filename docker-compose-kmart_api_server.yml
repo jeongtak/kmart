@@ -3,32 +3,36 @@ services:
   kmart-product:
     image: leejeongtak/kmart-app
     container_name: kmart-product
+    restart: on-failure
     ports:
       - "8081:8080"
 
   kmart-payment:
     image: leejeongtak/kmart-app
     container_name: kmart-payment
+    restart: on-failure
     ports:
       - "8082:8080"
 
   kmart-order:
     image: leejeongtak/kmart-app
     container_name: kmart-order
+    restart: on-failure
     ports:
       - "8083:8080"
     environment:
-      - api_server_name=kmart-order
+      - API_SERVER_NAME=kmart-order
 
   kmart-shipment:
     image: leejeongtak/kmart-app
     container_name: kmart-shipment
+    restart: on-failure
     ports:
       - "8084:8080"
     environment:
-      - api_server_name=kmart-shipment
+      - API_SERVER_NAME=kmart-shipment
 
 networks:
   default:
-    external:
-      name : kafka-net
+    name: kafka-net
+    external: true

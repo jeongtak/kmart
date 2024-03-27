@@ -30,7 +30,7 @@ public class KMartApplication {
 
 		log("============= API 서버 초기화 =================");
 
-		String apiServerName = System.getenv().get("api_server_name");
+		String apiServerName = System.getenv().get("API_SERVER_NAME");
 
 		log("API Server Name : "+apiServerName);
 
