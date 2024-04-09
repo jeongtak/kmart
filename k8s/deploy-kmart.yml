@@ -1,0 +1,163 @@
+apiVersion: apps/v1           # 쿠버네티스 api 버전
+kind: Deployment              # 생성할 오브젝트 종류
+metadata:
+  name: kmart-product     # deployment의 이름
+#  namespace: test             # 네임스페이스 명
+  labels:
+    app: kmart-product                # label 지정
+spec:                         # deployment의 스펙을 정의
+  replicas: 1                 # 2개의 pod 설정
+  selector:                   # deployment가 관리할 pod를 찾는 방법을 정의
+    matchLabels:
+      app: kmart-product
+  template:
+    metadata:
+      labels:                 # pod의 label
+        app: kmart-product
+    spec:
+      containers:             # 컨테이너 설정
+        - name: kmart-product
+          image: leejeongtak/kmart-app:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: API_SERVER_NAME
+              value: kmart-product
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kmart-product
+spec:
+  type: NodePort
+  ports:
+    - name: kmart-product
+      port: 8081      # 서비스 포트
+      targetPort: 8080  # 타켓, 즉 pod의 포트
+      nodePort: 30001
+      protocol: TCP
+  selector:
+    app: kmart-product
+---
+apiVersion: apps/v1           # 쿠버네티스 api 버전
+kind: Deployment              # 생성할 오브젝트 종류
+metadata:
+  name: kmart-payment     # deployment의 이름
+  #  namespace: test             # 네임스페이스 명
+  labels:
+    app: kmart-payment                # label 지정
+spec:                         # deployment의 스펙을 정의
+  replicas: 1                 # 2개의 pod 설정
+  selector:                   # deployment가 관리할 pod를 찾는 방법을 정의
+    matchLabels:
+      app: kmart-payment
+  template:
+    metadata:
+      labels:                 # pod의 label
+        app: kmart-payment
+    spec:
+      containers:             # 컨테이너 설정
+        - name: kmart-payment
+          image: leejeongtak/kmart-app:latest
+          ports:
+            - containerPort: 8082
+          env:
+            - name: API_SERVER_NAME
+              value: kmart-payment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kmart-payment
+spec:
+  type: NodePort
+  ports:
+    - name: kmart-payment
+      port: 8082      # 서비스 포트
+      targetPort: 8080  # 타켓, 즉 pod의 포트
+      nodePort: 30002
+      protocol: TCP
+  selector:
+    app: kmart-payment
+---
+apiVersion: apps/v1           # 쿠버네티스 api 버전
+kind: Deployment              # 생성할 오브젝트 종류
+metadata:
+  name: kmart-order     # deployment의 이름
+  #  namespace: test             # 네임스페이스 명
+  labels:
+    app: kmart-order                # label 지정
+spec:                         # deployment의 스펙을 정의
+  replicas: 1                 # 2개의 pod 설정
+  selector:                   # deployment가 관리할 pod를 찾는 방법을 정의
+    matchLabels:
+      app: kmart-order
+  template:
+    metadata:
+      labels:                 # pod의 label
+        app: kmart-order
+    spec:
+      containers:             # 컨테이너 설정
+        - name: kmart-order
+          image: leejeongtak/kmart-app:latest
+          ports:
+            - containerPort: 8083
+          env:
+            - name: API_SERVER_NAME
+              value: kmart-order
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kmart-order
+spec:
+  type: NodePort
+  ports:
+    - name: kmart-order
+      port: 8083      # 서비스 포트
+      targetPort: 8080  # 타켓, 즉 pod의 포트
+      nodePort: 30003
+      protocol: TCP
+  selector:
+    app: kmart-order
+---
+apiVersion: apps/v1           # 쿠버네티스 api 버전
+kind: Deployment              # 생성할 오브젝트 종류
+metadata:
+  name: kmart-shipment     # deployment의 이름
+  #  namespace: test             # 네임스페이스 명
+  labels:
+    app: kmart-shipment                # label 지정
+spec:                         # deployment의 스펙을 정의
+  replicas: 1                 # 2개의 pod 설정
+  selector:                   # deployment가 관리할 pod를 찾는 방법을 정의
+    matchLabels:
+      app: kmart-shipment
+  template:
+    metadata:
+      labels:                 # pod의 label
+        app: kmart-shipment
+    spec:
+      containers:             # 컨테이너 설정
+        - name: kmart-shipment
+          image: leejeongtak/kmart-app:latest
+          ports:
+            - containerPort: 8084
+          env:
+            - name: API_SERVER_NAME
+              value: kmart-shipment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kmart-shipment
+spec:
+  type: NodePort
+  ports:
+    - name: kmart-shipment
+      port: 8084      # 서비스 포트
+      targetPort: 8080  # 타켓, 즉 pod의 포트
+      nodePort: 30004
+      protocol: TCP
+  selector:
+    app: kmart-shipment
