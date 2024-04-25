@@ -1,6 +1,7 @@
 package ktcloud.mvp.kmart.kafka.sub;
 
 import ktcloud.mvp.kmart.KMartApplication;
+import ktcloud.mvp.kmart.db.ProductQuery;
 import ktcloud.mvp.kmart.kafka.pub.KafkaProducer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class PaymentDoneConsumer {
     public void subPaymentDoneEvent(String product) {
         KMartApplication.log("Kafka PaymentDoneConsumer: <---------- "+ product);
         KMartApplication.log("<"+product+"> 상품 결제 완료 Event를 구독하였습니다.");
+
+        ProductQuery.orderProduct(product);
+        KMartApplication.log("<"+product+"> 상품 DB 재고를 차감하였습니다.");
 
         KafkaProducer.pubOrderEvent(product);
     }

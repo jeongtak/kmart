@@ -1,6 +1,7 @@
 package ktcloud.mvp.kmart.kafka.sub;
 
 import ktcloud.mvp.kmart.KMartApplication;
+import ktcloud.mvp.kmart.db.ProductQuery;
 import ktcloud.mvp.kmart.push.WebSocketHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class OrderDoneConsumer {
     public void subOrderDoneEvent(String product) {
         KMartApplication.log("Kafka OrderDoneConsumer: <---------- "+ product);
         KMartApplication.log("<"+product+"> 상품 주문 완료 Event를 구독하였습니다.");
+
+        ProductQuery.deliverProduct(product);
+        KMartApplication.log("<"+product+"> 상품 DB 상태를 배송중으로 수정하였습니다.");
 
         try {
             Thread.sleep(1000);

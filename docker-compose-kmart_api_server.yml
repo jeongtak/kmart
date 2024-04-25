@@ -32,6 +32,18 @@ services:
     environment:
       - API_SERVER_NAME=kmart-shipment
 
+
+#  productdb:
+#    image: "postgres:latest"
+#    container_name: productdb
+#    restart: on-failure
+#    environment:
+#      - POSTGRES_USER=kmart
+#      - POSTGRES_DB=product_db
+#      - POSTGRES_PASSWORD=kmart
+#    ports:
+#      - "5431:5432"
+
 networks:
   default:
     name: kafka-net

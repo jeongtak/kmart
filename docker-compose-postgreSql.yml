@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+
+  product-db:
+    image: "postgres:9.6"
+    container_name: product-db
+    environment:
+      - POSTGRES_USER=kmart
+      - POSTGRES_DB=product_db
+      - POSTGRES_PASSWORD=kmart
+    ports:
+      - "30033:5432"
+    volumes:
+      - "db-data-kmart-postgres:/var/lib/postgresql/data"
+
+volumes:
+  db-data-kmart-postgres:
+
+networks:
+  default:
+    name: kafka-net
+    external: true
