@@ -6,5 +6,3 @@ kubectl delete service kmart-order
 kubectl delete deployment kmart-order
 kubectl delete service kmart-shipment
 kubectl delete deployment kmart-shipment
-
-kubectl apply -f kmart-deploy.yml
